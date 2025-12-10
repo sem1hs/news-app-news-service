@@ -4,7 +4,7 @@ import com.semihsahinoglu.news_service.entity.NewsCategory;
 
 import java.util.List;
 
-public record NewsRequest(
+public record CreateNewsRequest(
         String title,
         String slug,
         String content,

@@ -1,7 +1,8 @@
 package com.semihsahinoglu.news_service.controller;
 
-import com.semihsahinoglu.news_service.dto.NewsRequest;
+import com.semihsahinoglu.news_service.dto.CreateNewsRequest;
 import com.semihsahinoglu.news_service.dto.NewsResponse;
+import com.semihsahinoglu.news_service.dto.UpdateNewsRequest;
 import com.semihsahinoglu.news_service.service.NewsService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
@@ -21,8 +22,8 @@ public class NewsController {
     }
 
     @PostMapping
-    public ResponseEntity<NewsResponse> create(@Valid @RequestBody NewsRequest newsRequest) {
-        NewsResponse newsResponse = newsService.create(newsRequest);
+    public ResponseEntity<NewsResponse> create(@Valid @RequestBody CreateNewsRequest createNewsRequest) {
+        NewsResponse newsResponse = newsService.create(createNewsRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(newsResponse);
     }
 
@@ -30,6 +31,18 @@ public class NewsController {
     public ResponseEntity<Page<NewsResponse>> getAll(Pageable pageable) {
         Page<NewsResponse> newsResponses = newsService.getAll(pageable);
         return ResponseEntity.ok().body(newsResponses);
+    }
+
+    @PatchMapping("/{id}")
+    ResponseEntity<NewsResponse> update(@PathVariable Long id, @RequestBody UpdateNewsRequest newsRequest) {
+        NewsResponse newsResponse = newsService.update(id, newsRequest);
+        return ResponseEntity.status(HttpStatus.OK).body(newsResponse);
+    }
+
+    @DeleteMapping("/{id}")
+    ResponseEntity<?> delete(@PathVariable Long id) {
+        newsService.delete(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
     }
 
 }

@@ -4,8 +4,10 @@ import com.semihsahinoglu.news_service.entity.NewsCategory;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public record NewsResponse(
+        Long id,
         String title,
         String slug,
         String content,
@@ -24,6 +26,7 @@ public record NewsResponse(
     }
 
     public static class Builder {
+        private Long id;
         private String title;
         private String slug;
         private String content;
@@ -35,6 +38,11 @@ public record NewsResponse(
         private Integer views;
         private String createdBy;
         private LocalDateTime createdDate;
+
+        public Builder id(Long id) {
+            this.id = id;
+            return this;
+        }
 
         public Builder title(String title) {
             this.title = title;
@@ -92,7 +100,7 @@ public record NewsResponse(
         }
 
         public NewsResponse build() {
-            return new NewsResponse(title, slug, content, spot, category, subCategory, tags, imageUrl, views, createdBy, createdDate);
+            return new NewsResponse(id, title, slug, content, spot, category, subCategory, tags, imageUrl, views, createdBy, createdDate);
         }
 
     }

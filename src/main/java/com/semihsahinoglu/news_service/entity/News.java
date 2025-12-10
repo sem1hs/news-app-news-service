@@ -1,10 +1,12 @@
 package com.semihsahinoglu.news_service.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.DynamicUpdate;
 
 import java.util.List;
 
 @Entity
+@DynamicUpdate
 @Table(name = "news")
 public class News extends Auditable {
 
