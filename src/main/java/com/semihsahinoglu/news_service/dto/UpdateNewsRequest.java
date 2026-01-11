@@ -11,9 +11,10 @@ public record UpdateNewsRequest(
         Optional<String> content,
         Optional<String> spot,
         Optional<NewsCategory> category,
-        Optional<String> subCategory,
         Optional<List<String>> tags,
         Optional<String> imageUrl,
-        Optional<Integer> views
+        Optional<Integer> views,
+        Optional<Long> leagueId,
+        Optional<Long> teamId
 ) {
 }

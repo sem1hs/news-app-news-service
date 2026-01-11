@@ -19,16 +19,19 @@ public class NewsMapper {
                 .content(news.getContent())
                 .spot(news.getSpot())
                 .category(news.getCategory())
-                .subCategory(news.getSubCategory())
                 .tags(news.getTags())
                 .imageUrl(news.getImageUrl())
                 .views(news.getViews())
                 .createdBy(news.getCreatedBy())
                 .createdDate(news.getCreatedDate())
+                .leagueName(news.getLeagueName())
+                .teamName(news.getTeamName())
                 .build();
 
         return newsResponse;
     }
+
+
 
     public News toEntity(CreateNewsRequest createNewsRequest) {
         if (createNewsRequest == null) return null;
@@ -39,10 +42,10 @@ public class NewsMapper {
                 .content(createNewsRequest.content())
                 .spot(createNewsRequest.spot())
                 .category(createNewsRequest.category())
-                .subCategory(createNewsRequest.subCategory())
                 .tags(createNewsRequest.tags())
                 .imageUrl(createNewsRequest.imageUrl())
-                .views(createNewsRequest.views())
+                .leagueId(createNewsRequest.leagueId())
+                .teamId(createNewsRequest.teamId().orElse(null))
                 .build();
 
         return news;
@@ -55,7 +58,6 @@ public class NewsMapper {
         newsRequest.content().ifPresent(news::setContent);
         newsRequest.spot().ifPresent(news::setSpot);
         newsRequest.category().ifPresent(news::setCategory);
-        newsRequest.subCategory().ifPresent(news::setSubCategory);
         newsRequest.tags().ifPresent(news::setTags);
         newsRequest.imageUrl().ifPresent(news::setImageUrl);
         newsRequest.views().ifPresent(news::setViews);

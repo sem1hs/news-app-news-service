@@ -2,6 +2,11 @@ package com.semihsahinoglu.news_service.entity;
 
 public enum NewsCategory {
     SUPER_LIG("Süper Lig"),
+    PREMIER_LEAGUE("Premier League"),
+    BUNDESLIGA("Bundesliga"),
+    SERIE_A("Serie A"),
+    LA_LIGA("La Liga"),
+    LIGUE_1("Ligue 1"),
     TRANSFER("Transfer"),
     AVRUPA("Avrupa"),
     AVRUPA_KUPALARI("Avrupa Kupaları"),

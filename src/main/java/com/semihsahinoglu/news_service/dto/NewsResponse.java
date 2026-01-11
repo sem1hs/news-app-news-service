@@ -13,12 +13,13 @@ public record NewsResponse(
         String content,
         String spot,
         NewsCategory category,
-        String subCategory,
         List<String> tags,
         String imageUrl,
         Integer views,
         String createdBy,
-        LocalDateTime createdDate
+        LocalDateTime createdDate,
+        String leagueName,
+        String teamName
 ) implements ApiResponse {
 
     public static Builder builder() {
@@ -32,12 +33,13 @@ public record NewsResponse(
         private String content;
         private String spot;
         private NewsCategory category;
-        private String subCategory;
         private List<String> tags;
         private String imageUrl;
         private Integer views;
         private String createdBy;
         private LocalDateTime createdDate;
+        private String leagueName;
+        private String teamName;
 
         public Builder id(Long id) {
             this.id = id;
@@ -69,11 +71,6 @@ public record NewsResponse(
             return this;
         }
 
-        public Builder subCategory(String subCategory) {
-            this.subCategory = subCategory;
-            return this;
-        }
-
         public Builder tags(List<String> tags) {
             this.tags = tags;
             return this;
@@ -99,8 +96,18 @@ public record NewsResponse(
             return this;
         }
 
+        public Builder leagueName(String leagueName) {
+            this.leagueName = leagueName;
+            return this;
+        }
+
+        public Builder teamName(String teamName) {
+            this.teamName = teamName;
+            return this;
+        }
+
         public NewsResponse build() {
-            return new NewsResponse(id, title, slug, content, spot, category, subCategory, tags, imageUrl, views, createdBy, createdDate);
+            return new NewsResponse(id, title, slug, content, spot, category, tags, imageUrl, views, createdBy, createdDate, leagueName, teamName);
         }
 
     }

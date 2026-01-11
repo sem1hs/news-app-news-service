@@ -33,6 +33,12 @@ public class NewsController {
         return ResponseEntity.ok().body(newsResponses);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<NewsResponse> getById(@PathVariable Long id) {
+        NewsResponse newsResponse = newsService.getById(id);
+        return ResponseEntity.ok().body(newsResponse);
+    }
+
     @PatchMapping("/{id}")
     ResponseEntity<NewsResponse> update(@PathVariable Long id, @RequestBody UpdateNewsRequest newsRequest) {
         NewsResponse newsResponse = newsService.update(id, newsRequest);
