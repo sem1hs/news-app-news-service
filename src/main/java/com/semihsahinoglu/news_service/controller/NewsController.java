@@ -39,6 +39,12 @@ public class NewsController {
         return ResponseEntity.ok().body(newsResponse);
     }
 
+    @GetMapping("/slug/{slug}")
+    public ResponseEntity<NewsResponse> getBySlug(@PathVariable String slug) {
+        NewsResponse newsResponse = newsService.getBySlug(slug);
+        return ResponseEntity.ok().body(newsResponse);
+    }
+
     @PatchMapping("/{id}")
     ResponseEntity<NewsResponse> update(@PathVariable Long id, @RequestBody UpdateNewsRequest newsRequest) {
         NewsResponse newsResponse = newsService.update(id, newsRequest);

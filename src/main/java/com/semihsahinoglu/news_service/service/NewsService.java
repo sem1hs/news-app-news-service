@@ -48,6 +48,11 @@ public class NewsService {
         return newsMapper.toDto(news);
     }
 
+    public NewsResponse getBySlug(String slug) {
+        News news = newsRepository.findNewsBySlug(slug).orElseThrow(() -> new NewsNotFoundException("Haber bulunamadı !"));
+        return newsMapper.toDto(news);
+    }
+
     public NewsResponse update(Long newsId, UpdateNewsRequest newsRequest) {
         News news = newsRepository.findById(newsId).orElseThrow(() -> new NewsNotFoundException("Haber bulunamadı !"));
 

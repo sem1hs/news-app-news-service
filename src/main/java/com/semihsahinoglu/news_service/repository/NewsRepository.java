@@ -7,10 +7,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface NewsRepository extends JpaRepository<News, Long> {
 
     @Modifying
     @Query("DELETE FROM News n WHERE n.id = :id")
     int deleteNewsById(@Param("id") Long id);
+
+    Optional<News> findNewsBySlug(String slug);
 }
