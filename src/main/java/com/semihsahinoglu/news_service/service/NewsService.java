@@ -38,8 +38,14 @@ public class NewsService {
         return newsMapper.toDto(saved);
     }
 
-    public Page<NewsResponse> getAll(Pageable pageable) {
-        Page<News> newsList = newsRepository.findAll(pageable);
+    public Page<NewsResponse> getAll(NewsFilterRequest newsFilterRequest, Pageable pageable) {
+        Page<News> newsList;
+
+        if (newsFilterRequest.leagueName().isPresent()) {
+            newsList = newsRepository.findByLeagueName(newsFilterRequest.leagueName().get(), pageable);
+        } else {
+            newsList = newsRepository.findAll(pageable);
+        }
         return newsList.map(newsMapper::toDto);
     }
 

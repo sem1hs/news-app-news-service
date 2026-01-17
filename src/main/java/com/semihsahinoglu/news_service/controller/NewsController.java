@@ -1,6 +1,7 @@
 package com.semihsahinoglu.news_service.controller;
 
 import com.semihsahinoglu.news_service.dto.CreateNewsRequest;
+import com.semihsahinoglu.news_service.dto.NewsFilterRequest;
 import com.semihsahinoglu.news_service.dto.NewsResponse;
 import com.semihsahinoglu.news_service.dto.UpdateNewsRequest;
 import com.semihsahinoglu.news_service.service.NewsService;
@@ -28,8 +29,8 @@ public class NewsController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<NewsResponse>> getAll(Pageable pageable) {
-        Page<NewsResponse> newsResponses = newsService.getAll(pageable);
+    public ResponseEntity<Page<NewsResponse>> getAll(@ModelAttribute NewsFilterRequest newsFilterRequest, Pageable pageable) {
+        Page<NewsResponse> newsResponses = newsService.getAll(newsFilterRequest, pageable);
         return ResponseEntity.ok().body(newsResponses);
     }
 
