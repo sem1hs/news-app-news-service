@@ -4,6 +4,7 @@ import com.semihsahinoglu.news_service.dto.CreateNewsRequest;
 import com.semihsahinoglu.news_service.dto.NewsFilterRequest;
 import com.semihsahinoglu.news_service.dto.NewsResponse;
 import com.semihsahinoglu.news_service.dto.UpdateNewsRequest;
+import com.semihsahinoglu.news_service.entity.NewsCategory;
 import com.semihsahinoglu.news_service.service.NewsService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
@@ -11,6 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/news")
@@ -44,6 +47,24 @@ public class NewsController {
     public ResponseEntity<NewsResponse> getBySlug(@PathVariable String slug) {
         NewsResponse newsResponse = newsService.getBySlug(slug);
         return ResponseEntity.ok().body(newsResponse);
+    }
+
+    @GetMapping("/breaking")
+    public ResponseEntity<List<NewsResponse>> getBreakingNews() {
+        List<NewsResponse> newsResponses = newsService.getBreakingNews();
+        return ResponseEntity.status(HttpStatus.OK).body(newsResponses);
+    }
+
+    @GetMapping("/popular")
+    public ResponseEntity<List<NewsResponse>> getPopularNews(@RequestParam Integer dayRange) {
+        List<NewsResponse> newsResponses = newsService.getPopularNews(dayRange);
+        return ResponseEntity.status(HttpStatus.OK).body(newsResponses);
+    }
+
+    @GetMapping("/latest")
+    public ResponseEntity<List<NewsResponse>> getLatestNews(@RequestParam NewsCategory category) {
+        List<NewsResponse> newsResponses = newsService.getLatestNews(category);
+        return ResponseEntity.status(HttpStatus.OK).body(newsResponses);
     }
 
     @PatchMapping("/{id}")

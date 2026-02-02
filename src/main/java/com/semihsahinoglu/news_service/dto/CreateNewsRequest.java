@@ -14,6 +14,7 @@ public record CreateNewsRequest(
         List<String> tags,
         String imageUrl,
         Long leagueId,
-        Optional<Long> teamId
+        Optional<Long> teamId,
+        Boolean isBreaking
 ) {
 }

@@ -26,11 +26,11 @@ public class NewsMapper {
                 .createdDate(news.getCreatedDate())
                 .leagueName(news.getLeagueName())
                 .teamName(news.getTeamName())
+                .isBreaking(news.getIsBreaking())
                 .build();
 
         return newsResponse;
     }
-
 
 
     public News toEntity(CreateNewsRequest createNewsRequest) {
@@ -46,6 +46,7 @@ public class NewsMapper {
                 .imageUrl(createNewsRequest.imageUrl())
                 .leagueId(createNewsRequest.leagueId())
                 .teamId(createNewsRequest.teamId().orElse(null))
+                .isBreaking(createNewsRequest.isBreaking())
                 .build();
 
         return news;

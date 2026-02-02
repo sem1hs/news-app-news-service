@@ -4,14 +4,19 @@ import com.semihsahinoglu.news_service.client.LeagueClient;
 import com.semihsahinoglu.news_service.client.TeamClient;
 import com.semihsahinoglu.news_service.dto.*;
 import com.semihsahinoglu.news_service.entity.News;
+import com.semihsahinoglu.news_service.entity.NewsCategory;
 import com.semihsahinoglu.news_service.exception.NewsNotFoundException;
 import com.semihsahinoglu.news_service.mapper.NewsMapper;
 import com.semihsahinoglu.news_service.repository.NewsRepository;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 
@@ -56,7 +61,24 @@ public class NewsService {
 
     public NewsResponse getBySlug(String slug) {
         News news = newsRepository.findNewsBySlug(slug).orElseThrow(() -> new NewsNotFoundException("Haber bulunamadı !"));
+        newsRepository.incrementViews(news.getId());
         return newsMapper.toDto(news);
+    }
+
+    public List<NewsResponse> getBreakingNews() {
+        List<News> newsResponses = newsRepository.findTop10ByIsBreakingTrueOrderByCreatedDateDesc();
+        return newsResponses.stream().map(newsMapper::toDto).toList();
+    }
+
+    public List<NewsResponse> getPopularNews(Integer dayRange) {
+        List<News> newsList = newsRepository.findPopularNews(LocalDateTime.now().minusDays(dayRange), PageRequest.of(0, 8));
+        return newsList.stream().map(newsMapper::toDto).toList();
+    }
+
+    public List<NewsResponse> getLatestNews(NewsCategory category) {
+        Pageable pageable = PageRequest.of(0, 5);
+        List<News> newsList = newsRepository.findLatestByCategory(category, pageable);
+        return newsList.stream().map(newsMapper::toDto).toList();
     }
 
     public NewsResponse update(Long newsId, UpdateNewsRequest newsRequest) {
@@ -82,6 +104,7 @@ public class NewsService {
             throw new NewsNotFoundException("Haber bulunamadı !");
         }
     }
+
 
     private void enrichWithLeagueAndTeam(News news) {
         CompletableFuture<LeagueResponse> leagueFuture = CompletableFuture.supplyAsync(() -> leagueClient.findLeagueById(news.getLeagueId()));

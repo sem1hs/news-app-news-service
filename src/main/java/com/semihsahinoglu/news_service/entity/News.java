@@ -35,7 +35,7 @@ public class News extends Auditable {
     @Column(nullable = false)
     private String imageUrl;
 
-    private Integer views;
+    private int views;
 
     @Column(nullable = false)
     private Long leagueId;
@@ -49,10 +49,13 @@ public class News extends Auditable {
     @Column
     private String teamName;
 
+    @Column(nullable = false)
+    private Boolean isBreaking;
+
     public News() {
     }
 
-    public News(String title, String slug, String content, String spot, NewsCategory category, List<String> tags, String imageUrl, Integer views, Long leagueId, Long teamId, String leagueName, String teamName) {
+    public News(String title, String slug, String content, String spot, NewsCategory category, List<String> tags, String imageUrl, int views, Long leagueId, Long teamId, String leagueName, String teamName, Boolean isBreaking) {
         this.title = title;
         this.slug = slug;
         this.content = content;
@@ -65,6 +68,7 @@ public class News extends Auditable {
         this.teamId = teamId;
         this.leagueName = leagueName;
         this.teamName = teamName;
+        this.isBreaking = isBreaking;
     }
 
     public static Builder builder() {
@@ -79,11 +83,12 @@ public class News extends Auditable {
         private NewsCategory category;
         private List<String> tags;
         private String imageUrl;
-        private Integer views;
+        private int views;
         private Long leagueId;
         private Long teamId;
         private String leagueName;
         private String teamName;
+        private Boolean isBreaking;
 
         public Builder title(String title) {
             this.title = title;
@@ -120,7 +125,7 @@ public class News extends Auditable {
             return this;
         }
 
-        public Builder views(Integer views) {
+        public Builder views(int views) {
             this.views = views;
             return this;
         }
@@ -145,8 +150,13 @@ public class News extends Auditable {
             return this;
         }
 
+        public Builder isBreaking(Boolean isBreaking) {
+            this.isBreaking = isBreaking;
+            return this;
+        }
+
         public News build() {
-            return new News(title, slug, content, spot, category, tags, imageUrl, views, leagueId, teamId, leagueName, teamName);
+            return new News(title, slug, content, spot, category, tags, imageUrl, views, leagueId, teamId, leagueName, teamName, isBreaking);
         }
 
     }
@@ -245,5 +255,13 @@ public class News extends Auditable {
 
     public void setTeamName(String teamName) {
         this.teamName = teamName;
+    }
+
+    public Boolean getIsBreaking() {
+        return isBreaking;
+    }
+
+    public void setIsBreaking(Boolean breaking) {
+        isBreaking = breaking;
     }
 }

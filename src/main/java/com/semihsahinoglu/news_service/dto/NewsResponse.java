@@ -4,7 +4,6 @@ import com.semihsahinoglu.news_service.entity.NewsCategory;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 public record NewsResponse(
         Long id,
@@ -19,7 +18,8 @@ public record NewsResponse(
         String createdBy,
         LocalDateTime createdDate,
         String leagueName,
-        String teamName
+        String teamName,
+        Boolean isBreaking
 ) implements ApiResponse {
 
     public static Builder builder() {
@@ -40,6 +40,7 @@ public record NewsResponse(
         private LocalDateTime createdDate;
         private String leagueName;
         private String teamName;
+        private Boolean isBreaking;
 
         public Builder id(Long id) {
             this.id = id;
@@ -106,8 +107,13 @@ public record NewsResponse(
             return this;
         }
 
+        public Builder isBreaking(Boolean isBreaking) {
+            this.isBreaking = isBreaking;
+            return this;
+        }
+
         public NewsResponse build() {
-            return new NewsResponse(id, title, slug, content, spot, category, tags, imageUrl, views, createdBy, createdDate, leagueName, teamName);
+            return new NewsResponse(id, title, slug, content, spot, category, tags, imageUrl, views, createdBy, createdDate, leagueName, teamName, isBreaking);
         }
 
     }
