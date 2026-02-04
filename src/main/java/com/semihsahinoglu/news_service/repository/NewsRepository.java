@@ -4,6 +4,7 @@ import com.semihsahinoglu.news_service.entity.News;
 import com.semihsahinoglu.news_service.entity.NewsCategory;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface NewsRepository extends JpaRepository<News, Long> {
+public interface NewsRepository extends JpaRepository<News, Long>, JpaSpecificationExecutor<News> {
 
     @Modifying
     @Query("DELETE FROM News n WHERE n.id = :id")
