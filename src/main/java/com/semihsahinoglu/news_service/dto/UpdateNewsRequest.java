@@ -15,6 +15,7 @@ public record UpdateNewsRequest(
         Optional<String> imageUrl,
         Optional<Integer> views,
         Optional<Long> leagueId,
-        Optional<Long> teamId
+        Optional<Long> teamId,
+        Optional<Boolean> isBreaking
 ) {
 }

@@ -64,5 +64,6 @@ public class NewsMapper {
         newsRequest.views().ifPresent(news::setViews);
         newsRequest.leagueId().ifPresent(news::setLeagueId);
         newsRequest.teamId().ifPresent(news::setTeamId);
+        newsRequest.isBreaking().ifPresent(news::setIsBreaking);
     }
 }
