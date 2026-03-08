@@ -34,8 +34,10 @@ public interface NewsRepository extends JpaRepository<News, Long>, JpaSpecificat
 
     Optional<News> findNewsBySlug(String slug);
 
-    Page<News> findByLeagueName(String leagueName, Pageable pageable);
+    Page<News> findByLeagueNameOrderByCreatedDateDesc(String leagueName, Pageable pageable);
 
     List<News> findTop10ByIsBreakingTrueOrderByCreatedDateDesc();
+
+    Page<News> findAllByOrderByCreatedDateDesc(Pageable pageable);
 
 }

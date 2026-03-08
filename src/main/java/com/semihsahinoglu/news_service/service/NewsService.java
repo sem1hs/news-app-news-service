@@ -49,7 +49,7 @@ public class NewsService {
         if (newsFilterRequest.leagueName().isPresent()) {
             newsList = newsRepository.findByLeagueName(newsFilterRequest.leagueName().get(), pageable);
         } else {
-            newsList = newsRepository.findAll(pageable);
+            newsList = newsRepository.findAllByOrderByCreatedDateDesc(pageable);
         }
         return newsList.map(newsMapper::toDto);
     }
