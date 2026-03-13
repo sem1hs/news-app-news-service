@@ -47,7 +47,7 @@ public class NewsService {
         Page<News> newsList;
 
         if (newsFilterRequest.leagueName().isPresent()) {
-            newsList = newsRepository.findByLeagueName(newsFilterRequest.leagueName().get(), pageable);
+            newsList = newsRepository.findByLeagueNameOrderByCreatedDateDesc(newsFilterRequest.leagueName().get(), pageable);
         } else {
             newsList = newsRepository.findAllByOrderByCreatedDateDesc(pageable);
         }
