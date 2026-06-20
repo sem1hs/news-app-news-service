@@ -14,6 +14,7 @@ public enum NewsCategory {
     MILLI_TAKIM("Milli Takım"),
     HAKEM("Hakem"),
     KULUPLER("Kulüpler"),
+    WORLD_CUP("Dünya Kupası"),
     GENEL("Genel");
 
     private String category;
